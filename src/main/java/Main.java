@@ -20,6 +20,18 @@ public class Main {
         	
         });
         
+        post("/user/create", new Route() {
+
+			@Override
+			public Object handle(Request request, Response response) throws Exception {
+				String userName = (String) request.attribute("user_name");
+				String userPassword = (String) request.attribute("user_password");
+				String userMail = (String) request.attribute("user_mail");
+				return userName+" "+userPassword+" "+userMail;
+			}
+        	
+        });
+        
         get("/hello", (req, res) -> "Hello Heroku World");
     }
 
