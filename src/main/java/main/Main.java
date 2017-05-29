@@ -1,7 +1,9 @@
+package main;
 import static spark.Spark.*;
 
 import org.chocosolver.solver.Model;
 
+import dao.UserDAO;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -24,9 +26,10 @@ public class Main {
 
 			@Override
 			public Object handle(Request request, Response response) throws Exception {
-				String userName = (String) request.attribute("user_name");
-				String userPassword = (String) request.attribute("user_password");
-				String userMail = (String) request.attribute("user_mail");
+				String userName = (String) request.queryParams("user_name");
+				String userPassword = (String) request.queryParams("user_password");
+				String userMail = (String) request.queryParams("user_mail");
+				UserDAO.getInstance().createUser(userName, userPassword, userMail);
 				return userName+" "+userPassword+" "+userMail;
 			}
         	
