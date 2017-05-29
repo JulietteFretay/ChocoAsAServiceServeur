@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>edu.imt.chocoasservicetest</groupId>
-    <artifactId>chocoasservicetest</artifactId>
+    <groupId>edu.imt.chocoasaservicetest</groupId>
+    <artifactId>chocoasaservicetest</artifactId>
     <version>1.0</version>
 
     <dependencies>
@@ -55,10 +55,10 @@
                 <version>0.4.4</version>
                 <configuration>
                     <jdkVersion>1.8</jdkVersion>
-                    <appName>chocoasservicetest</appName>
+                    <appName>chocoasaservicetest</appName>
                     <processTypes>
                         <!-- Tell Heroku how to launch your application -->
-                        <web>java -jar ./target/chocoasservicetest-1.0-jar-with-dependencies.jar</web>
+                        <web>java -jar ./target/chocoasaservicetest-1.0-jar-with-dependencies.jar</web>
                     </processTypes>
                 </configuration>
             </plugin>
