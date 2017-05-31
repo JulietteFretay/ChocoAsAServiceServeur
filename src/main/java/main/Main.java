@@ -3,6 +3,7 @@ import static spark.Spark.*;
 
 import org.chocosolver.solver.Model;
 
+import dao.ProblemDAO;
 import dao.UserDAO;
 import spark.Request;
 import spark.Response;
@@ -36,6 +37,20 @@ public class Main {
 			}
         	
         });
+        
+        post("/problem/create", new Route() {
+
+			@Override
+			public Object handle(Request request, Response response) throws Exception {
+				String xml = (String) request.queryParams("problem_xml");
+				ProblemDAO.getInstance().createProblem(xml);
+				return " "+xml;
+			}
+        	
+        });
+        
+        
+        
         
         
     }
