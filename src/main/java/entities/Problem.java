@@ -3,13 +3,7 @@ package entities;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 /**
  * Created by tandrieux on 26/05/2017.
@@ -24,7 +18,7 @@ public class Problem {
 	@Column(name="XML")
 	private String xml;
 
-	@OneToMany(mappedBy="problem")
+	@OneToMany(mappedBy = "problem", cascade = CascadeType.ALL)
 	private List<Solution> solutions;
 
 	public Problem(String xml) {

@@ -9,9 +9,15 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 public class Main {
 
     public static void main(String[] args) {
+	    EntityManagerFactory em = Persistence.createEntityManagerFactory("ChocoDB");
+	    em.createEntityManager().close();
+
         port(getHerokuAssignedPort());
         
         get("/hello", (req, res) -> "Hello Heroku World");
@@ -25,7 +31,7 @@ public class Main {
         	
         });
         
-        post("/user/create", new Route() {
+        post("/user", new Route() {
 
 			@Override
 			public Object handle(Request request, Response response) throws Exception {
@@ -38,7 +44,7 @@ public class Main {
         	
         });
         
-        post("/problem/create", new Route() {
+        post("/problem", new Route() {
 
 			@Override
 			public Object handle(Request request, Response response) throws Exception {
