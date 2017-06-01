@@ -1,10 +1,13 @@
 package main;
 import static spark.Spark.*;
 
+import java.io.IOException;
+
 import org.chocosolver.solver.Model;
 
 import dao.ProblemDAO;
 import dao.UserDAO;
+import entities.AfficheurFlux;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -50,7 +53,24 @@ public class Main {
 			public Object handle(Request request, Response response) throws Exception {
 				String xml = (String) request.queryParams("problem_xml");
 				ProblemDAO.getInstance().createProblem(xml);
-				return " "+xml;
+				String commande = "java -cp choco-parsers-4.0.3-with-dependencies.jar org.chocosolver.parser.xcsp.ChocoXCSP test.xml";
+				try {
+					System.out.println("Début du programme");
+					Process p = Runtime.getRuntime().exec(commande);
+					AfficheurFlux fluxSortie = new AfficheurFlux(p.getInputStream());
+		            AfficheurFlux fluxErreur = new AfficheurFlux(p.getErrorStream());
+		            
+		            new Thread(fluxSortie).start();
+		            new Thread(fluxErreur).start();
+		            
+					p.waitFor();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				System.out.println("Fin du programme");
+				return "{ text }";
 			}
         	
         });
