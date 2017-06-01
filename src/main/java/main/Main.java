@@ -55,7 +55,7 @@ public class Main {
 				String xml = (String) request.body();
 				Problem pb = ProblemDAO.getInstance().createProblem(xml);
 
-				String commande = "java -cp choco-parsers-4.0.3-with-dependencies.jar org.chocosolver.parser.xcsp.ChocoXCSP test.xml";
+				String commande = "java -cp choco-parsers-4.0.3-with-dependencies.jar org.chocosolver.parser.xcsp.ChocoXCSP " + pb.getPath();
 				try {
 					System.out.println("D�but du programme");
 					Process p = Runtime.getRuntime().exec(commande);
