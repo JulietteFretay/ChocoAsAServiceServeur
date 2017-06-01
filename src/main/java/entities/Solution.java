@@ -12,6 +12,10 @@ public class Solution {
 	@Column(name="ID")
 	private int id;
 
+	public Solution(){
+		
+	}
+	
 	public Solution(int id,Problem problem) {
 		this.id = id;
 	}
