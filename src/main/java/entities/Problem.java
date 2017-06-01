@@ -20,6 +20,8 @@ public class Problem {
 
 	@OneToMany(mappedBy = "problem", cascade = CascadeType.ALL)
 	private List<Solution> solutions;
+	
+	public Problem(){}
 
 	public Problem(String xml) {
 		solutions = new ArrayList<>();

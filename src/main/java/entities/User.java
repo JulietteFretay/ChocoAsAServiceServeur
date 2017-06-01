@@ -21,6 +21,8 @@ public class User {
 	
 	@Column(name="Mail")
 	private String mail;
+	
+	public User(){}
 
 	public User(String login, String password, String mail) {
 		this.login = login;
