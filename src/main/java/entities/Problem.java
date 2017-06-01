@@ -1,5 +1,9 @@
 package entities;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,28 +15,47 @@ import javax.persistence.*;
 @Entity
 public class Problem {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="ID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
 	private int id;
-	
-	@Column(name="XML")
-	private String xml;
+
+	@Column(name = "PATH")
+	private String path;
+	@Transient
+	private File file;
 
 	@OneToMany(mappedBy = "problem", cascade = CascadeType.ALL)
 	private List<Solution> solutions;
 
-	public Problem(String xml) {
+	public Problem() {
 		solutions = new ArrayList<>();
-		this.xml = xml;
 	}
 
 	public void solve() {
 
 	}
-	
+
+	public void setFile(String xml) throws IOException {
+		path = "problem_" + id + ".xml";
+		FileOutputStream fstream = new FileOutputStream(path);
+		PrintWriter writer = new PrintWriter(fstream, true);
+		writer.print(xml);
+		writer.close();
+	}
+
 	public List<Solution> getSolutions() {
 		return solutions;
 	}
-	
-	
+
+	public int getId() {
+		return id;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public File getFile() {
+		return file;
+	}
 }

@@ -1,6 +1,7 @@
 package main;
 import static spark.Spark.*;
 
+import entities.Problem;
 import org.chocosolver.solver.Model;
 
 import dao.ProblemDAO;
@@ -15,8 +16,8 @@ import javax.persistence.Persistence;
 public class Main {
 
     public static void main(String[] args) {
-	    EntityManagerFactory em = Persistence.createEntityManagerFactory("ChocoDB");
-	    em.createEntityManager().close();
+    	EntityManagerFactory em = Persistence.createEntityManagerFactory("ChocoDB");
+    	em.createEntityManager().close();
 
         port(getHerokuAssignedPort());
         
@@ -44,13 +45,14 @@ public class Main {
         	
         });
         
-        post("/problem", new Route() {
+        post("/problem", "application/xml", new Route() {
 
 			@Override
 			public Object handle(Request request, Response response) throws Exception {
-				String xml = (String) request.queryParams("problem_xml");
-				ProblemDAO.getInstance().createProblem(xml);
-				return " "+xml;
+
+				String xml = (String) request.body();
+				Problem pb = ProblemDAO.getInstance().createProblem(xml);
+				return pb.getId();
 			}
         	
         });
