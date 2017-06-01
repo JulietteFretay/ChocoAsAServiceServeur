@@ -3,3 +3,6 @@
 create.ddl
 drop.ddl
 *.iml
+*.project
+*.classpath
+*.settings/
