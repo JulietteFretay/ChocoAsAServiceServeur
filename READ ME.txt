@@ -1,0 +1,20 @@
+SPRINT 1
+--------
+
+Voici notre avancement au moment de la fin du Sprint 1.
+
+Nous avons réalisé un entretient de fin de Sprint le jeudi 1 juin afin de valider notre travail.
+
+Vous trouverez ci dessous le lien du Trello sur lequel nous nous basons pour notre projet agile en équipe.
+
+https://trello.com/invite/b/JTu3CM5C/91a88256c18d1828ff5fd148fe15cc97/choco-as-a-service
+
+Sur ce lien vous trouverez :
+-Un Burndown chart
+-Une retrospective du premier sprint
+-Une revue de l'entretient de fin de sprint
+
+
+
+
+Théo Andrieux Thomas Lailler et Juliette Fretay
