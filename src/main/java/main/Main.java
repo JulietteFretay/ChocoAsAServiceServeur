@@ -52,7 +52,6 @@ public class Main {
 			@Override
 			public Object handle(Request request, Response response) throws Exception {
 				String xml = (String) request.queryParams("problem_xml");
-				ProblemDAO.getInstance().createProblem(xml);
 				String commande = "java -cp choco-parsers-4.0.3-with-dependencies.jar org.chocosolver.parser.xcsp.ChocoXCSP test.xml";
 				try {
 					System.out.println("Début du programme");
