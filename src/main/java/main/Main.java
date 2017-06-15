@@ -1,9 +1,15 @@
 package main;
 import static spark.Spark.*;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.StringReader;
 
 import org.chocosolver.solver.Model;
+import org.dom4j.io.XMLWriter;
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import dao.ProblemDAO;
 import dao.UserDAO;
@@ -14,6 +20,14 @@ import spark.Route;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.stream.XMLOutputFactory;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 public class Main {
 
@@ -52,6 +66,16 @@ public class Main {
 			@Override
 			public Object handle(Request request, Response response) throws Exception {
 				String xml = (String) request.queryParams("problem_xml");
+				
+				Document xmlFile = parse(xml);
+				TransformerFactory transformerFactory = TransformerFactory.newInstance();
+				  Transformer transformer = transformerFactory.newTransformer();
+				  DOMSource source = new DOMSource(xmlFile);
+				  StreamResult streamResult =  new StreamResult(new File("test.xml"));
+				  transformer.transform(source, streamResult);
+				  
+				//ProblemDAO.getInstance().createProblem(xml);
+				
 				String commande = "java -cp choco-parsers-4.0.3-with-dependencies.jar org.chocosolver.parser.xcsp.ChocoXCSP test.xml";
 				try {
 					System.out.println("Début du programme");
@@ -74,10 +98,12 @@ public class Main {
         	
         });
         
-        
-        
-        
-        
+    }
+    
+    public final static Document parse(String xml) throws ParserConfigurationException, SAXException, IOException {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        return builder.parse(new InputSource(new StringReader(xml)));
     }
 
     static int getHerokuAssignedPort() {
