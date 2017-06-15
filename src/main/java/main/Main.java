@@ -2,9 +2,9 @@ package main;
 import static spark.Spark.*;
 
 import java.io.File;
+import entities.Problem;
 import java.io.IOException;
 import java.io.StringReader;
-
 import org.chocosolver.solver.Model;
 import org.dom4j.io.XMLWriter;
 import org.w3c.dom.Document;
@@ -32,8 +32,8 @@ import javax.xml.transform.stream.StreamResult;
 public class Main {
 
     public static void main(String[] args) {
-	    EntityManagerFactory em = Persistence.createEntityManagerFactory("ChocoDB");
-	    em.createEntityManager().close();
+    	EntityManagerFactory em = Persistence.createEntityManagerFactory("ChocoDB");
+    	em.createEntityManager().close();
 
         port(getHerokuAssignedPort());
         
@@ -61,7 +61,7 @@ public class Main {
         	
         });
         
-        post("/problem", new Route() {
+        post("/problem", "application/xml", new Route() {
 
 			@Override
 			public Object handle(Request request, Response response) throws Exception {
@@ -77,8 +77,9 @@ public class Main {
 				//ProblemDAO.getInstance().createProblem(xml);
 				
 				String commande = "java -cp choco-parsers-4.0.3-with-dependencies.jar org.chocosolver.parser.xcsp.ChocoXCSP test.xml";
+
 				try {
-					System.out.println("Début du programme");
+					System.out.println("Dï¿½but du programme");
 					Process p = Runtime.getRuntime().exec(commande);
 					AfficheurFlux fluxSortie = new AfficheurFlux(p.getInputStream());
 		            AfficheurFlux fluxErreur = new AfficheurFlux(p.getErrorStream());
@@ -93,7 +94,8 @@ public class Main {
 					e.printStackTrace();
 				}
 				System.out.println("Fin du programme");
-				return "{ text }";
+
+				return pb.getId();
 			}
         	
         });

@@ -3,3 +3,7 @@
 create.ddl
 drop.ddl
 *.iml
+*.project
+*.classpath
+*.settings/
+problem_*.xml
