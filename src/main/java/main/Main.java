@@ -74,12 +74,12 @@ public class Main {
 				  StreamResult streamResult =  new StreamResult(new File("test.xml"));
 				  transformer.transform(source, streamResult);
 				  
-				//ProblemDAO.getInstance().createProblem(xml);
+				Problem pb = ProblemDAO.getInstance().createProblem(xml);
 				
 				String commande = "java -cp choco-parsers-4.0.3-with-dependencies.jar org.chocosolver.parser.xcsp.ChocoXCSP test.xml";
 
 				try {
-					System.out.println("Dï¿½but du programme");
+					System.out.println("Début du programme");
 					Process p = Runtime.getRuntime().exec(commande);
 					AfficheurFlux fluxSortie = new AfficheurFlux(p.getInputStream());
 		            AfficheurFlux fluxErreur = new AfficheurFlux(p.getErrorStream());

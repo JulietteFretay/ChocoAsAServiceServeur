@@ -21,6 +21,10 @@ public class Problem {
 
 	@Column(name = "PATH")
 	private String path;
+	
+	@Column(name = "XML")
+	private String xml;
+	
 	@Transient
 	private File file;
 
@@ -37,6 +41,7 @@ public class Problem {
 
 	public void setFile(String xml) throws IOException {
 		path = "problem_" + id + ".xml";
+		this.xml = xml;
 		FileOutputStream fstream = new FileOutputStream(path);
 		PrintWriter writer = new PrintWriter(fstream, true);
 		writer.print(xml);
@@ -57,5 +62,9 @@ public class Problem {
 
 	public File getFile() {
 		return file;
+	}
+
+	public String getXml() {
+		return xml;
 	}
 }
