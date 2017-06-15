@@ -65,7 +65,7 @@ public class Main {
 
 			@Override
 			public Object handle(Request request, Response response) throws Exception {
-				String xml = (String) request.queryParams("problem_xml");
+				String xml = (String) request.body();
 				
 				Document xmlFile = parse(xml);
 				TransformerFactory transformerFactory = TransformerFactory.newInstance();
